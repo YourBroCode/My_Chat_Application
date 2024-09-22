@@ -43,6 +43,7 @@ This is a chat application built using Next.js, MongoDB, and Pusher. Follow the 
    PUSHER_CLUSTER=
    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
    NEXT_PUBLIC_GCP_API_KEY=
+   NEXT_PUBLIC_UPLOAD_PRESET=
    ```
 
 5. **Start the Development Server:**
