@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @tailwind trace; */
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3); /* Darker scrollbar thumb */
+    border-radius: 4px;
+  }
+}
+
+
+/* Login & Register Pages */
+.auth {
+  @apply w-full h-lvh flex items-center justify-center bg-full-dark;
+}
+
+.content {
+  @apply w-1/3 py-7 px-4 max-sm:w-5/6 max-lg:w-2/3 max-xl:w-1/2 flex flex-col items-center justify-center gap-6 bg-base-dark rounded-3xl border-[2px] border-dark-bord;
+}
+
+.logo {
+  @apply w-52 h-auto transition-transform duration-300 ease-in-out ;
+}
+
+.logo:hover {
+  @apply cursor-pointer;
+  transform: scale(1.1); /* Slightly enlarge the logo on hover */
+ }
+
+.form {
+  @apply flex flex-col items-center gap-5 text-white;
+}
+
+.input {
+  @apply flex items-center justify-between px-5 py-3 rounded-2xl cursor-pointer border-2 border-newgreen transition-colors hover:border-neworange ;
+
+}
+/* .input:focus {
+  @apply border-newgreen ; /* Changes border color to visible on focus 
+} */
+
+.input-field {
+  @apply w-[300px] max-sm:w-full bg-transparent outline-none ;
+}
+
+.button {
+  @apply w-full px-5 py-3 mt-5 mb-7 rounded-xl cursor-pointer bg-newgreen hover:bg-neworange text-white text-body-bold;
+}
+
+.link {
+  @apply text-base-medium hover:text-hover-color;
+}
+
+/* Main Container */
+.main-container {
+  @apply h-screen flex justify-center gap-5 px-10 py-3 max-lg:gap-8;
+}
+
+/* Top Bar */
+.topbar {
+  @apply top-0 sticky px-10 py-5 flex items-center justify-between bg-[#1f2c34] text-[#737373] rounded-2xl border-2 border-dark-bord ;
+}
+
+.menu {
+  @apply flex items-center gap-8 max-sm:hidden;
+}
+
+.profilePhoto {
+  @apply w-11 h-11 rounded-full object-cover object-center;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  @apply fixed bottom-0 z-50 w-full flex justify-between items-center px-5 py-2 bg-white sm:hidden
+}
+
+/* Profile Page */
+.profile-page {
+  @apply mt-16 flex flex-col gap-11 items-center justify-center;
+}
+
+.edit-profile {
+  @apply flex flex-col gap-9 
+}
+
+.profile {
+  @apply w-1/3 max-sm:w-5/6 max-lg:w-2/3 max-xl:w-1/2 flex flex-col items-center justify-center gap-6 bg-white rounded-3xl;
+}
+
+.btn {
+  @apply flex items-center justify-center rounded-xl p-3 bg-newgreen hover:bg-neworange text-body-bold text-white;
+}
+
+/* Chat List */
+.chat-list {
+  @apply h-screen flex flex-col gap-5 pb-20 px-12;
+}
+
+.input-search {
+  @apply px-5 py-3 rounded-2xl bg-white outline-none;
+}
+
+.chats {
+  @apply flex-1 flex flex-col rounded-3xl py-4 px-3 overflow-y-scroll custom-scrollbar bg-white px-12;
+}
+
+/* Chat Box */
+.chat-box {
+  @apply flex items-start justify-between p-2 rounded-2xl cursor-pointer hover:bg-grey-2;
+}
+
+/* ChatDetails */
+.chat-details {
+  @apply h-screen flex flex-col bg-white rounded-2xl;
+}
+.current-chat {
+  @apply bg-blue-2;
+}
+
+.chat-info {
+  @apply flex gap-3;
+}
+
+.last-message {
+  @apply w-[120px] sm:w-[250px] truncate;
+}
+
+/* Contacts */
+.create-chat-container {
+  @apply flex flex-col gap-5;
+}
+
+.contact-bar {
+  @apply  gap-7 items-start max-lg:flex-col pb-20 px-12;
+}
+
+.contact-list {
+  @apply h-[80vh] w-[80%]  max-lg:w-full flex flex-col gap-5 bg-white rounded-3xl py-5 px-8 mb-20;
+}
+
+.contact {
+  @apply flex gap-3 items-center cursor-pointer p-2;
+}
+
+.create-chat {
+  @apply w-1/2 max-lg:w-full flex flex-col gap-7;
+}
+
+.input-group-name {
+  @apply bg-white rounded-2xl px-5 py-3 outline-none ;
+}
+
+.selected-contact {
+  @apply text-base-bold p-2 bg-pink-1 rounded-lg;
+}
+
+
+
+/* Chat Header */
+.chat-header {
+  @apply flex items-center gap-4 px-8 py-3 text-body-bold text-white;
+}
+
+
+/* Chat Body */
+.chat-body {
+  @apply flex-1 flex flex-col gap-5 bg-grey-2 p-5 overflow-y-scroll custom-scrollbar;
+}
+
+.message-box {
+  @apply flex gap-3 items-start;
+}
+
+.message-profilePhoto {
+  @apply w-8 h-8 rounded-full;
+}
+
+.message-info {
+  @apply flex flex-col gap-2;
+}
+
+.message-photo {
+  @apply w-40 h-auto rounded-lg;
+}
+
+.message-text {
+  @apply w-fit bg-white p-3 rounded-lg text-base-medium;
+}
+
+.message-text-sender {
+  @apply w-fit bg-purple-2 text-white p-3 rounded-lg text-base-medium;
+}
+
+/* Message Input */
+.send-message {
+  @apply w-full flex items-center justify-between px-7 py-3 rounded-3xl cursor-pointer bg-white;
+}
+
+.prepare-message {
+  @apply flex items-center gap-4;
+}
+
+.send-icon {
+  @apply w-10 h-10 rounded-full hover:scale-125 ease-in-out duration-300;
+}
+
+/* BottomBar */
+.bottombar {
+  @apply bottom-0 sticky px-10 py-5 flex items-center justify-between sm:hidden;
+}
+
+
+/* Adjustments for Contact List and UI Design */
+
+/* General Styling */
+.bg-light-gray {
+  @apply bg-gray-100; /* Light background color for general elements */
+}
+
+/* Contacts */
+.contact-list {
+  @apply w-full h-[80vh] flex flex-col gap-5 bg-light-gray rounded-3xl py-5 px-8 mb-20;
+}
+
+/* Chat List */
+.chat-list {
+  @apply w-full h-[80vh] flex flex-col gap-5 pb-20 bg-light-gray;
+}
+
+/* Top Bar */
+.topbar {
+  @apply top-0 sticky px-10 py-5 flex items-center justify-between bg-[#2d3a44] text-[#8c8c8c] rounded-2xl border-2 border-dark-bord;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  @apply fixed bottom-0 z-50 w-full flex justify-between items-center px-5 py-2 bg-[#f0f0f0] sm:hidden;
+}
+
+/* Chat Box */
+.chat-box {
+  @apply flex items-start justify-between p-2 rounded-2xl cursor-pointer hover:bg-gray-200;
+}
+
+/* Current Chat */
+.current-chat {
+  @apply bg-blue-300; /* Slightly lighter blue for current chat */
+}
+
+/* Contact */
+.contact {
+  @apply flex gap-3 items-center cursor-pointer hover:bg-gray-200 p-4 rounded-lg;
+}
+
+/* Input Fields */
+.input-search, .input-group-name {
+  @apply bg-[#2b3942] rounded-2xl px-5 py-3 outline-none text-white;
+}
+
+/* Button */
+.button {
+  @apply bg-blue-500 hover:bg-blue-600 text-white;
+}
+
+/* Chat Details */
+.chat-details {
+  @apply w-full h-screen flex flex-col bg-light-gray rounded-2xl;
+}
+
+
+/* Chat Header */
+.chat-header {
+  @apply bg-blue-500 text-white;
+}
+
+
+.video-call {
+  position: fixed;
+  top: 10%;
+  right: 10%;
+  width: 300px;
+  height: 200px;
+  background-color: black;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
