@@ -168,7 +168,7 @@ const ChatDetails = ({ chatId }) => {
             <CldUploadButton
               options={{ maxFiles: 1 }}
               onUpload={sendPhoto}
-              uploadPreset="kyhtkk4m"   //change the uploadPreset value after setting up the Cloudinary API Key
+              uploadPreset={process.env.NEXT_PUBLIC_UPLOAD_PRESET}  //change the uploadPreset value after setting up the Cloudinary API Key
             >
               <AddPhotoAlternate
                 sx={{
