@@ -100,7 +100,7 @@ const GroupInfo = () => {
           <CldUploadButton
             options={{ maxFiles: 1 }}
             onUpload={uploadPhoto}
-            uploadPreset="upecg01j"
+            uploadPreset={process.env.NEXT_PUBLIC_UPLOAD_PRESET}
           >
             <p className="text-body-bold">Upload new photo</p>
           </CldUploadButton>
