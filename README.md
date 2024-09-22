@@ -1,3 +1,7 @@
+Name - Shyam Kumar
+Admission number = 22je0944
+Department - Mechanical Engineering - Mining Machinery Engineering
+University - IIT Dhanbad , Jharkhand
 
 
 
@@ -5,7 +9,7 @@
 
 ## Overview
 
-This is a chat application built using Next.js, MongoDB, and Pusher. Follow the instructions below to set up the project locally.
+This is a chat application built using Next.js, MongoDB, and Pusher. please follow the instructions below to set up the project locally.
 
 ## Prerequisites
 
