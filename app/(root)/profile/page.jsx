@@ -101,7 +101,7 @@ const Profile = () => {
           <CldUploadButton
             options={{ maxFiles: 1 }}
             onUpload={uploadPhoto}
-            uploadPreset="kyhtkk4m"
+            uploadPreset={process.env.NEXT_PUBLIC_UPLOAD_PRESET}
           >
             <button className="bg-neworange text-white py-2 px-4 rounded-md shadow-md hover:bg-newgreen transition">
               Upload new photo
