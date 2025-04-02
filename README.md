@@ -1,12 +1,3 @@
-Name - Shyam Kumar
-
-Admission number - 22je0944
-
-Department - Mechanical Engineering - Mining Machinery Engineering
-
-University - IIT Dhanbad , Jharkhand
-
-
 
 # My Chat Application
 
