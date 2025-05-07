@@ -1,26 +1,27 @@
 "use client";
-
+import { useState } from "react";
 import {
   EmailOutlined,
-  LockOutlined,
+  Visibility,
+  VisibilityOff,
   PersonOutline,
 } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { signIn } from "next-auth/react"
-
+import { signIn } from "next-auth/react";
 const Form = ({ type }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handleShowPassword = () => setShowPassword((prev) => !prev);
   const onSubmit = async (data) => {
     if (type === "register") {
       const res = await fetch("/api/auth/register", {
@@ -37,6 +38,7 @@ const Form = ({ type }) => {
 
       if (res.error) {
         toast.error("Something went wrong");
+        console.log(res.error);
       }
     }
 
@@ -44,7 +46,7 @@ const Form = ({ type }) => {
       const res = await signIn("credentials", {
         ...data,
         redirect: false,
-      })
+      });
 
       if (res.ok) {
         router.push("/chats");
@@ -56,8 +58,6 @@ const Form = ({ type }) => {
     }
   };
 
-  
-
   return (
     <div className="auth">
       <div className="content">
@@ -66,7 +66,7 @@ const Form = ({ type }) => {
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           {type === "register" && (
             <div>
-              <div className="input" >
+              <div className="input">
                 <input
                   defaultValue=""
                   {...register("username", {
@@ -120,11 +120,21 @@ const Form = ({ type }) => {
                     }
                   },
                 })}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 className="input-field"
               />
-              <LockOutlined sx={{ color: "#737373" }} />
+              {showPassword ? (
+                <VisibilityOff
+                  sx={{ color: "#737373", cursor: "pointer" }}
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <Visibility
+                  sx={{ color: "#737373", cursor: "pointer" }}
+                  onClick={() => setShowPassword(true)}
+                />
+              )}
             </div>
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
@@ -137,13 +147,23 @@ const Form = ({ type }) => {
         </form>
 
         {type === "register" ? (
-          <Link href="/" className="link">
-            <p className="text-center text-grey-1"> Already have an account? Sign In Here</p>
-          </Link>
+          <p className="text-center text-white">
+            {" "}
+            Already have an account?
+            <Link href="/" className="link">
+              {" "}
+              Sign In Here
+            </Link>
+          </p>
         ) : (
-          <Link href="/register" className="link">
-            <p className="text-center" text-color="white">Don't have an account? Register Here</p>
-          </Link>
+          <div>
+            <p className="text-center text-white">
+              Don't have an account?{" "}
+              <Link href="/register" className="link">
+                Register Here
+              </Link>
+            </p>
+          </div>
         )}
       </div>
     </div>
