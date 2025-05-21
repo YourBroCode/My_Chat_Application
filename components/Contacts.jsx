@@ -87,7 +87,7 @@ const Contacts = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <div className="flex flex-col flex-1 gap-5 overflow-y-scroll custom-scrollbar">
+          <div className="flex flex-col flex-1 gap-1 overflow-y-scroll custom-scrollbar">
             {contacts.map((user, index) => (
               <div
                 key={index}

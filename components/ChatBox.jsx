@@ -37,9 +37,9 @@ const ChatBox = ({ chat, currentUser, currentChatId }) => {
 
         <div className="flex flex-col gap-1">
           {chat?.isGroup ? (
-            <p className="text-base-bold">{chat?.name}</p>
+            <p className="text-base-bold overflow-hidden whitespace-nowrap text-clip max-w-[160px]">{chat?.name}</p>
           ) : (
-            <p className="text-base-bold">{otherMembers[0]?.username}</p>
+            <p className="text-base-bold overflow-hidden whitespace-nowrap text-clip max-w-[160px]">{otherMembers[0]?.username}</p>
           )}
 
           {!lastMessage && <p className="text-small-bold">Started a chat</p>}

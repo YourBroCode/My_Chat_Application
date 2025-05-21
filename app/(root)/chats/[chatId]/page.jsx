@@ -5,7 +5,6 @@ import ChatList from "@components/ChatList"
 import { useSession } from "next-auth/react"
 import { useParams } from "next/navigation"
 import { useEffect } from "react"
-// import TopBar from  "@components/TopBar"
 
 
 const ChatPage = () => {
@@ -36,7 +35,6 @@ const ChatPage = () => {
 
   return (
     <div className="main-container">
-      {/* <TopBar/> */}
       <div className="w-1/3 max-lg:hidden"><ChatList currentChatId={chatId}/></div>
       <div className="w-2/3 max-lg:w-full"><ChatDetails chatId={chatId}/></div>
     </div>

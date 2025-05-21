@@ -109,7 +109,7 @@
 }
 
 .chats {
-  @apply flex-1 flex flex-col rounded-3xl py-4 px-3 overflow-y-scroll custom-scrollbar bg-white px-12;
+  @apply flex-1 flex flex-col rounded-3xl gap-1 py-4 px-4 overflow-y-scroll custom-scrollbar bg-white;
 }
 
 /* Chat Box */
@@ -126,11 +126,11 @@
 }
 
 .chat-info {
-  @apply flex gap-3;
+  @apply flex gap-2;
 }
 
 .last-message {
-  @apply w-[120px] sm:w-[250px] truncate;
+  @apply w-[120px] sm:w-[250px] overflow-hidden whitespace-nowrap text-clip max-w-[200px];
 }
 
 /* Contacts */
@@ -139,7 +139,7 @@
 }
 
 .contact-bar {
-  @apply  gap-7 items-start max-lg:flex-col pb-20 px-12;
+  @apply  gap-7 items-start max-lg:flex-col pb-12 px-5;
 }
 
 .contact-list {
@@ -147,7 +147,7 @@
 }
 
 .contact {
-  @apply flex gap-3 items-center cursor-pointer p-2;
+  @apply flex gap-1 items-center cursor-pointer p-1;
 }
 
 .create-chat {
