@@ -1,14 +1,12 @@
-import User from "@models/User";
 import { connectToDB } from "@mongodb";
-import { hash } from "bcryptjs";
-
-export const POST = async (req, res) => {
+import { sendOTP } from "@lib/mailer";
+import User from "@models/User";
+export const POST = async (req) => {
   try {
     await connectToDB();
 
-    const body = await req.json();
+    const { email} = await req.json();
 
-    const { username, email, password } = body;
 
     const existingUser = await User.findOne({ email });
 
@@ -18,21 +16,16 @@ export const POST = async (req, res) => {
       });
     }
 
-    const hashedPassword = await hash(password, 10);
+    const otpResponse = await sendOTP(email);
+    if (!otpResponse.success) {
+      return new Response("Failed to send OTP", { status: 500 });
+    }
 
-    const newUser = await User.create({
-      username,
-      email,
-      password: hashedPassword,
+    return new Response(JSON.stringify({ message: "OTP sent successfully" }), {
+      status: 200,
     });
-
-    await newUser.save();
-
-    return new Response(JSON.stringify(newUser), { status: 200 });
   } catch (err) {
-    console.log(err);
-    return new Response("Failed to create a new user", {
-      status: 500,
-    });
+    console.error(err);
+    return new Response("Failed to process request", { status: 500 });
   }
 };
