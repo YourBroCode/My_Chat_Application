@@ -1,6 +1,6 @@
-import ChatBot from '../components/ChatBot';
+import ChatBot from '@/components/ChatBot';
 
- function C() {
+function C() {
   return (
     <div>
       <h1 className="text-3xl font-bold">Welcome to My Website</h1>
@@ -8,3 +8,5 @@ import ChatBot from '../components/ChatBot';
     </div>
   );
 }
+
+export default C;
