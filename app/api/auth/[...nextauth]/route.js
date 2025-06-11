@@ -35,15 +35,36 @@ const handler = NextAuth({
 
   secret: process.env.NEXTAUTH_SECRET,
 
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+
   callbacks: {
-    async session({session}) {
-      const mongodbUser = await User.findOne({ email: session.user.email })
-      session.user.id = mongodbUser._id.toString()
-
-      session.user = {...session.user, ...mongodbUser._doc}
-
-      return session
+    async session({session, token}) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture;
+      }
+      return session;
+    },
+    async jwt({token, user}) {
+      if (user) {
+        token.id = user._id;
+        token.name = user.username;
+        token.email = user.email;
+        token.picture = user.profileImage;
+      }
+      return token;
     }
+  },
+
+  pages: {
+    signIn: "/",
+    signOut: "/",
+    error: "/",
   }
 });
 
