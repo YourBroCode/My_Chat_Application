@@ -12,15 +12,16 @@ const TopBar = () => {
 
   const handleLogout = async () => {
     try {
+      // First, sign out from NextAuth
       await signOut({ 
-        redirect: false,
-        callbackUrl: "/"
+        redirect: false
       });
-      // Force a hard refresh to clear all state
-      window.location.href = "/";
+      
+      // Then redirect to home page
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
-      // Fallback to hard refresh if signOut fails
+      // If there's an error, try a hard redirect
       window.location.href = "/";
     }
   };
