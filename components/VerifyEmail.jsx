@@ -72,7 +72,7 @@ const VerifyEmailForm = () => {
   return (
     <div className="auth">
       <div className="content">
-        <img src="/assets/logoShyam1.png" alt="logo" className="logo" />
+        <img src="/assets/LogoShyam1.png" alt="logo" className="logo" />
 
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="input">

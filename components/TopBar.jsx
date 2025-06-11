@@ -19,7 +19,7 @@ const TopBar = () => {
   return (
     <div className="topbar">
       <Link href="/chats">
-        <img src="/assets/logoShyam1.png" alt="logo" className="logo" />
+        <img src="/assets/LogoShyam1.png" alt="logo" className="logo" />
       </Link>
 
       <div className="menu">
