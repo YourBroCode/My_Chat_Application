@@ -35,13 +35,16 @@ const handler = NextAuth({
 
   secret: process.env.NEXTAUTH_SECRET,
 
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+
   callbacks: {
     async session({session}) {
       const mongodbUser = await User.findOne({ email: session.user.email })
       session.user.id = mongodbUser._id.toString()
-
       session.user = {...session.user, ...mongodbUser._doc}
-
       return session
     }
   }

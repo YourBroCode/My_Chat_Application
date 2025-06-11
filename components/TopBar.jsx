@@ -3,14 +3,27 @@
 import { Logout } from "@mui/icons-material";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const TopBar = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleLogout = async () => {
-    signOut({ callbackUrl: "/" });
+    try {
+      // First, sign out from NextAuth
+      await signOut({ 
+        redirect: false
+      });
+      
+      // Then redirect to home page
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      // If there's an error, try a hard redirect
+      window.location.href = "/";
+    }
   };
 
   const { data: session } = useSession();
@@ -19,7 +32,7 @@ const TopBar = () => {
   return (
     <div className="topbar">
       <Link href="/chats">
-        <img src="/assets/logoShyam1.png" alt="logo" className="logo" />
+        <img src="/assets/LogoShyam1.png" alt="logo" className="logo" />
       </Link>
 
       <div className="menu">
@@ -41,7 +54,7 @@ const TopBar = () => {
         </Link>
 
         <Logout
-          sx={{ color: "#737373", cursor: "pointer", }}
+          sx={{ color: "#737373", cursor: "pointer" }}
           onClick={handleLogout}
         />
 
