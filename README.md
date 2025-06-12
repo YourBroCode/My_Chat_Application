@@ -10,6 +10,14 @@ This is a chat application built using Next.js, MongoDB, and Pusher. please foll
 - Node.js
 - npm
 - MongoDB
+- Cloudinary
+- Pusher
+- Gemini
+  
+## Login credentials
+
+- Email: seven7@gmail.com
+- Password: seven7@
 
 ## Setup Instructions
 
