@@ -40,7 +40,8 @@ const TopBar = () => {
   // };
 
   const handleLogout = async () => {
-    signOut({ callbackUrl: "/register" });
+    setIsLoggingOut(true);
+    signOut({ callbackUrl: "/" });
   };
 
   const { data: session } = useSession();

@@ -56,11 +56,11 @@ const handler = NextAuth({
     }
   },
 
-  events: {
-    async signOut() {
-      // Clear any server-side session data if needed
-    }
-  }
+  // events: {
+  //   async signOut() {
+  //     // Clear any server-side session data if needed
+  //   }
+  // }
 });
 
 export { handler as GET, handler as POST };
