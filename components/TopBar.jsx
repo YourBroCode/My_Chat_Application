@@ -11,32 +11,36 @@ const TopBar = () => {
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogout = async () => {
-    if (isLoggingOut) return; // Prevent multiple clicks
+  // const handleLogout = async () => {
+  //   if (isLoggingOut) return; // Prevent multiple clicks
     
-    try {
-      setIsLoggingOut(true);
+  //   try {
+  //     setIsLoggingOut(true);
       
-      // Clear any local storage
-      await signOut({ callbackUrl: '/' });
-      localStorage.clear();
+  //     // Clear any local storage
+  //     await signOut({ callbackUrl: '/' });
+  //     localStorage.clear();
       
-      // Sign out from NextAuth
-      await signOut({ 
-        redirect: false
-      });
+  //     // Sign out from NextAuth
+  //     await signOut({ 
+  //       redirect: false
+  //     });
 
-      // Use a small delay to ensure components unmount
-      setTimeout(() => {
-        // Force a hard refresh to clear all state
-        window.location.href = "/";
-      }, 100);
-    } catch (error) {
-      console.error("Logout error:", error);
-      setIsLoggingOut(false);
-      // If there's an error, try a hard refresh
-      window.location.href = "/";
-    }
+  //     // Use a small delay to ensure components unmount
+  //     setTimeout(() => {
+  //       // Force a hard refresh to clear all state
+  //       window.location.href = "/";
+  //     }, 100);
+  //   } catch (error) {
+  //     console.error("Logout error:", error);
+  //     setIsLoggingOut(false);
+  //     // If there's an error, try a hard refresh
+  //     window.location.href = "/";
+  //   }
+  // };
+
+  const handleLogout = async () => {
+    signOut({ callbackUrl: "/" });
   };
 
   const { data: session } = useSession();
