@@ -42,10 +42,23 @@ const handler = NextAuth({
 
   callbacks: {
     async session({session}) {
-      const mongodbUser = await User.findOne({ email: session.user.email })
-      session.user.id = mongodbUser._id.toString()
-      session.user = {...session.user, ...mongodbUser._doc}
-      return session
+      try {
+        const mongodbUser = await User.findOne({ email: session.user.email })
+        if (mongodbUser) {
+          session.user.id = mongodbUser._id.toString()
+          session.user = {...session.user, ...mongodbUser._doc}
+        }
+        return session
+      } catch (error) {
+        console.error("Session callback error:", error);
+        return session
+      }
+    }
+  },
+
+  events: {
+    async signOut() {
+      // Clear any server-side session data if needed
     }
   }
 });

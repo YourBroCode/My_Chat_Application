@@ -4,24 +4,37 @@ import { Logout } from "@mui/icons-material";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const TopBar = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    if (isLoggingOut) return; // Prevent multiple clicks
+    
     try {
-      // First, sign out from NextAuth
+      setIsLoggingOut(true);
+      
+      // Clear any local storage
+      await signOut({ callbackUrl: '/' });
+      localStorage.clear();
+      
+      // Sign out from NextAuth
       await signOut({ 
         redirect: false
       });
-      
-      // Then redirect to home page
-      router.push("/");
+
+      // Use a small delay to ensure components unmount
+      setTimeout(() => {
+        // Force a hard refresh to clear all state
+        window.location.href = "/";
+      }, 100);
     } catch (error) {
       console.error("Logout error:", error);
-      // If there's an error, try a hard redirect
+      setIsLoggingOut(false);
+      // If there's an error, try a hard refresh
       window.location.href = "/";
     }
   };
@@ -54,7 +67,11 @@ const TopBar = () => {
         </Link>
 
         <Logout
-          sx={{ color: "#737373", cursor: "pointer" }}
+          sx={{ 
+            color: "#737373", 
+            cursor: isLoggingOut ? "not-allowed" : "pointer",
+            opacity: isLoggingOut ? 0.5 : 1
+          }}
           onClick={handleLogout}
         />
 
