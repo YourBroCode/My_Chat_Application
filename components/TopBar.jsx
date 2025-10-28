@@ -41,8 +41,8 @@ const TopBar = () => {
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
-  console.log("Origin:", window.location.origin); 
-    signOut({ callbackUrl: "https://my-chat-application.vercel.app/" });
+    console.log("Origin:", window.location.origin); 
+    signOut();
   };
 
   const { data: session } = useSession();
