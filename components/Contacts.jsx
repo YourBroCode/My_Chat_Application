@@ -78,8 +78,8 @@ const Contacts = () => {
     <Loader />
   ) : (
     <div className="create-chat-container">
-      <div className="contact-bar flex">
-        <div className="contact-list flex-1">
+      <div className="contact-bar flex overflow-x-hidden">
+        <div className="contact-list flex-1 min-w-0">
           <input
             placeholder="Search contact..."
             className="input-search mb-5"
@@ -87,11 +87,11 @@ const Contacts = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <div className="flex flex-col flex-1 gap-1 overflow-y-scroll custom-scrollbar">
+          <div className="flex flex-col flex-1 gap-1 overflow-y-scroll">
             {contacts.map((user, index) => (
               <div
                 key={index}
-                className="contact"
+                className="contact w-full p-2 hover:bg-gray-100 rounded-xl"
                 onClick={() => handleSelect(user)}
               >
                 {selectedContacts.includes(user) ? (
@@ -111,7 +111,7 @@ const Contacts = () => {
         </div>
 
         {selectedContacts.length > 0 && (
-          <div className="create-chat ml-5 flex-none w-1/3">
+          <div className="create-chat ml-5 flex-none w-1/3 max-w-[420px] min-w-0">
             <button
               className="btn mb-5"
               onClick={createChat}

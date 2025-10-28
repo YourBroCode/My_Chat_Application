@@ -7,7 +7,6 @@ export const POST = async (req) => {
 
     const { email} = await req.json();
 
-
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
