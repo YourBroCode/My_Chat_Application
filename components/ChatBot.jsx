@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { generateChatResponse } from "../app/api/ChatBot/generative"; 
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,26 +15,37 @@ const ChatBot = () => {
     setIsOpen(!isOpen);
   };
 
-  const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GCP_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
+   // Create the user message object
     const userMessage = { sender: "user", text: input };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    
+    // Optimistically update UI
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
 
-    const result = await model.generateContent(input);
-    const responseText = await result.response.text();
+    try {
 
-    const botMessage = {
-      sender: "bot",
-      text: responseText || "Sorry, I didn't get that.",
-    };
-    setMessages((prevMessages) => [...prevMessages, botMessage]);
-    setLoading(false);
+      const response = await generateChatResponse(input, messages);
+
+      const botMessage = {
+        sender: "bot",
+        text: response.success ? response.text : "Sorry, I couldn't generate a response.",
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Chat error:", error);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Something went wrong. Please try again." },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -75,7 +86,9 @@ const ChatBot = () => {
                 {message.text}
               </p>
             ))}
-            {loading && <p className="text-center text-gray-600">Typing...</p>}
+            {loading && (
+              <p className="text-center text-gray-600">Typing...</p>
+            )}
           </div>
 
           {/* Message Input */}

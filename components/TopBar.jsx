@@ -8,7 +8,7 @@ import React, { useState } from "react";
 
 const TopBar = () => {
   const pathname = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // const handleLogout = async () => {

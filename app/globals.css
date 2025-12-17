@@ -66,8 +66,14 @@
 
 /* Top Bar */
 .topbar {
-  @apply top-0 sticky px-10 py-5 flex items-center justify-between bg-[#1f2c34] text-[#737373] rounded-2xl border-2 border-dark-bord ;
+  @apply sticky top-0 z-50
+         px-10 py-4
+         flex items-center justify-between
+         bg-[#1f2c34]
+         text-[#b0b0b0]
+         border-b border-[#2e3b43];
 }
+
 
 .menu {
   @apply flex items-center gap-8 max-sm:hidden;
@@ -235,10 +241,10 @@
   @apply w-full h-[80vh] flex flex-col gap-5 pb-20 bg-light-gray;
 }
 
-/* Top Bar */
+/* Top Bar
 .topbar {
   @apply top-0 sticky px-10 py-5 flex items-center justify-between bg-[#2d3a44] text-[#8c8c8c] rounded-2xl border-2 border-dark-bord;
-}
+} */
 
 /* Bottom Bar */
 .bottom-bar {

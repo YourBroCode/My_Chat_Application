@@ -1,23 +1,33 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+"use server";
 
-import { NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenerativeAI(process.env.GCP_API_KEY);
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
-
-export async function POST(req) {
+export async function generateChatResponse(message, history) {
   try {
-    const data = await req.json();
-    const prompt = data.body;
+    // 1. Format the history for Gemini
+    // Gemini expects: [{ role: 'user' | 'model', parts: [{ text: '...' }] }]
+    const formattedHistory = history.map((msg) => ({
+      role: msg.sender === "user" ? "user" : "model",
+      parts: [{ text: msg.text }],
+    }));
 
-    // Fetch result from the model
-    const result = await model.generateContent(prompt);
-    const output = result.response?.text || "No valid response from the model.";
+    // 2. Add the NEW message to the end of the history
+    formattedHistory.push({
+      role: "user",
+      parts: [{ text: message }],
+    });
 
-    return NextResponse.json({ output });
+    // 3. Send the entire conversation context to Gemini
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: formattedHistory, // Pass the full history here
+    });
+
+    return { success: true, text: response.text };
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Something went wrong with the API request." }, { status: 500 });
+    console.error("Gemini Error:", error);
+    return { success: false, text: "Failed to generate response." };
   }
 }
