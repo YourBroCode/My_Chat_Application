@@ -64,6 +64,7 @@
   @apply h-screen flex gap-5 py-3 max-lg:gap-8;
 }
 
+
 /* Top Bar */
 .topbar {
   @apply sticky top-0 z-50
