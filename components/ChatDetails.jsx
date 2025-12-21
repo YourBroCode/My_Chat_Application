@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Loader from "./Loader";
-import { AddPhotoAlternate } from "@mui/icons-material";
+import { Send, AddPhotoAlternate } from "@mui/icons-material";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { CldUploadButton } from "next-cloudinary";
@@ -190,9 +190,9 @@ const ChatDetails = ({ chatId }) => {
             />
           </div>
 
-          <div onClick={sendText}>
-            <img src="/assets/send.jpg" alt="send" className="send-icon" />
-          </div>
+         <div onClick={sendText} className="cursor-pointer p-2 hover:bg-white/5 rounded-full transition">
+  <Send sx={{ color: "#10b981", fontSize: "30px" }} />
+</div>
         </div>
       </div>
     </div>

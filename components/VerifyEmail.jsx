@@ -70,7 +70,7 @@ const VerifyEmailForm = () => {
   }
 
   return (
-    <div className="auth">
+    <div className="auth auth-bg">
       <div className="content">
         <img src="/assets/LogoShyam1.png" alt="logo" className="logo" />
 

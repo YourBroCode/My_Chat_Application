@@ -2,78 +2,75 @@ import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 
 const ChatBox = ({ chat, currentUser, currentChatId }) => {
+  const router = useRouter();
+
   const otherMembers = chat?.members?.filter(
     (member) => member._id !== currentUser._id
   );
 
   const lastMessage =
-    chat?.messages?.length > 0 && chat?.messages[chat?.messages.length - 1];
+    chat?.messages?.length > 0 &&
+    chat?.messages[chat.messages.length - 1];
 
   const seen = lastMessage?.seenBy?.find(
     (member) => member._id === currentUser._id
   );
 
-  const router = useRouter();
+  const isActive = chat._id === currentChatId;
 
   return (
     <div
-      className={`chat-box ${chat._id === currentChatId ? "bg-blue-2" : ""}`}
+      className={`chat-item ${isActive ? "chat-item-active" : ""}`}
       onClick={() => router.push(`/chats/${chat._id}`)}
     >
-      <div className="chat-info">
-        {chat?.isGroup ? (
-          <img
-            src={chat?.groupPhoto || "/assets/group.png"}
-            alt="group-photo"
-            className="profilePhoto"
-          />
-        ) : (
-          <img
-            src={otherMembers[0].profileImage || "/assets/person.jpg"}
-            alt="profile-photo"
-            className="profilePhoto"
-          />
+      {/* Avatar */}
+      <img
+        src={
+          chat?.isGroup
+            ? chat?.groupPhoto || "/assets/group.png"
+            : otherMembers[0]?.profileImage || "/assets/person.jpg"
+        }
+        alt="chat avatar"
+        className="chat-avatar"
+      />
+
+      {/* Chat Text */}
+      <div className="chat-text">
+        <p className="chat-name">
+          {chat?.isGroup ? chat?.name : otherMembers[0]?.username}
+        </p>
+
+        {!lastMessage && (
+          <p className="chat-preview">Started a chat</p>
         )}
 
-        <div className="flex flex-col gap-1">
-          {chat?.isGroup ? (
-            <p className="text-base-bold overflow-hidden whitespace-nowrap text-clip max-w-[160px]">{chat?.name}</p>
-          ) : (
-            <p className="text-base-bold overflow-hidden whitespace-nowrap text-clip max-w-[160px]">{otherMembers[0]?.username}</p>
-          )}
-
-          {!lastMessage && <p className="text-small-bold">Started a chat</p>}
-
-          {lastMessage?.photo ? (
-            lastMessage?.sender?._id === currentUser._id ? (
-              <p className="text-small-medium text-grey-3">You sent a photo</p>
-            ) : (
-              <p
-                className={`${
-                  seen ? "text-small-medium text-grey-3" : "text-small-bold"
-                }`}
-              >
-                Received a photo
-              </p>
-            )
-          ) : (
-            <p
-              className={`last-message ${
-                seen ? "text-small-medium text-grey-3" : "text-small-bold"
-              }`}
-            >
-              {lastMessage?.text}
-            </p>
-          )}
-        </div>
+        {lastMessage?.photo ? (
+          <p className={seen ? "chat-preview" : "chat-preview-unread"}>
+            {lastMessage.sender._id === currentUser._id
+              ? "You sent a photo"
+              : "Received a photo"}
+          </p>
+        ) : (
+          <p className={seen ? "chat-preview" : "chat-preview-unread"}>
+            {lastMessage?.text}
+          </p>
+        )}
       </div>
 
-      <div>
-        <p className="text-base-light text-grey-3">
-          {!lastMessage
-            ? format(new Date(chat?.createdAt), "p")
-            : format(new Date(chat?.lastMessageAt), "p")}
-        </p>
+      {/* Time + Unread */}
+      <div className="chat-meta">
+        <span>
+          {format(
+            new Date(
+              lastMessage ? chat.lastMessageAt : chat.createdAt
+            ),
+            "p"
+          )}
+        </span>
+
+        {!seen && lastMessage?.sender?._id !== currentUser._id && (
+          <span className="unread-dot" />
+        )}
       </div>
     </div>
   );

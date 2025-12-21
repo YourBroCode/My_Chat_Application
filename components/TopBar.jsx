@@ -3,80 +3,55 @@
 import { Logout } from "@mui/icons-material";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 const TopBar = () => {
   const pathname = usePathname();
-  // const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-
-  // const handleLogout = async () => {
-  //   if (isLoggingOut) return; // Prevent multiple clicks
-    
-  //   try {
-  //     setIsLoggingOut(true);
-      
-  //     // Clear any local storage
-  //     await signOut({ callbackUrl: '/' });
-  //     localStorage.clear();
-      
-  //     // Sign out from NextAuth
-  //     await signOut({ 
-  //       redirect: false
-  //     });
-
-  //     // Use a small delay to ensure components unmount
-  //     setTimeout(() => {
-  //       // Force a hard refresh to clear all state
-  //       window.location.href = "/";
-  //     }, 100);
-  //   } catch (error) {
-  //     console.error("Logout error:", error);
-  //     setIsLoggingOut(false);
-  //     // If there's an error, try a hard refresh
-  //     window.location.href = "/";
-  //   }
-  // };
-
-  const handleLogout = async () => {
-    setIsLoggingOut(true);
-    console.log("Origin:", window.location.origin); 
-    signOut();
-  };
-
   const { data: session } = useSession();
   const user = session?.user;
 
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    signOut();
+  };
+
   return (
-    <div className="topbar">
-      <Link href="/chats">
+    <header className="topbar">
+      {/* LEFT: Logo */}
+      <Link href="/chats" className="topbar-left">
         <img src="/assets/LogoShyam1.png" alt="logo" className="logo" />
       </Link>
 
-      <div className="menu">
+      {/* CENTER: Navigation */}
+      <nav className="topbar-nav">
         <Link
           href="/chats"
-          className={`${
-            pathname === "/chats" ? "text-neworange" : ""
-          } text-heading4-bold`}
+          className={`topbar-link ${
+            pathname === "/chats" ? "topbar-link-active" : ""
+          }`}
         >
           Chats
         </Link>
+
         <Link
           href="/contacts"
-          className={`${
-            pathname === "/contacts" ? "text-neworange" : ""
-          } text-heading4-bold`}
+          className={`topbar-link ${
+            pathname === "/contacts" ? "topbar-link-active" : ""
+          }`}
         >
           Contacts
         </Link>
+      </nav>
 
+      {/* RIGHT: Actions */}
+      <div className="topbar-actions">
         <Logout
-          sx={{ 
-            color: "#737373", 
+          className="logout-icon"
+          sx={{
             cursor: isLoggingOut ? "not-allowed" : "pointer",
-            opacity: isLoggingOut ? 0.5 : 1
+            opacity: isLoggingOut ? 0.5 : 1,
           }}
           onClick={handleLogout}
         />
@@ -89,7 +64,7 @@ const TopBar = () => {
           />
         </Link>
       </div>
-    </div>
+    </header>
   );
 };
 

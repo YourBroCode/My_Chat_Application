@@ -91,56 +91,70 @@ const Contacts = () => {
             {contacts.map((user, index) => (
               <div
                 key={index}
-                className="contact w-full p-2 hover:bg-gray-100 rounded-xl"
+                className={`contact w-full ${
+                  selectedContacts.includes(user) ? "contact-selected" : ""
+                }`}
                 onClick={() => handleSelect(user)}
               >
                 {selectedContacts.includes(user) ? (
-                  <CheckCircle sx={{ color: "green" }} /> // Green tick for selected contacts
+                  <CheckCircle sx={{ color: "#00a884" }} />
                 ) : (
-                  <RadioButtonUnchecked />
+                  <RadioButtonUnchecked sx={{ color: "#8696a0" }} />
                 )}
+
                 <img
                   src={user.profileImage || "/assets/person.jpg"}
                   alt="profile"
                   className="profilePhoto"
                 />
-                <p className="text-base-bold">{user.username}</p>
+                <p className="contact-name">{user.username}</p>
               </div>
             ))}
           </div>
         </div>
-
         {selectedContacts.length > 0 && (
-          <div className="create-chat ml-5 flex-none w-1/3 max-w-[420px] min-w-0">
-            <button
-              className="btn mb-5"
-              onClick={createChat}
-              disabled={selectedContacts.length === 0}
-            >
-              START A NEW CHAT
-            </button>
+          <div className="right-panel">
+            {/* SINGLE CHAT (1 user selected) */}
+            {selectedContacts.length === 1 && (
+              <div className="single-chat-wrapper">
+                <button className="group-primary-btn" onClick={createChat}>
+                  START A NEW CHAT
+                </button>
+              </div>
+            )}
 
+            {/* GROUP CHAT (2+ users selected) */}
             {isGroup && (
               <>
-                <div className="flex flex-col gap-3 mb-5">
-                  <p className="text-body-bold text-blue-600">Group Chat Name</p> {/* Enhanced color */}
-                  <input
-                    placeholder="Enter group chat name..."
-                    className="input-group-name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                <div className="group-card">
+                  {/* Group Name */}
+                  <div className="group-field">
+                    <p className="group-label">Group Chat Name</p>
+                    <input
+                      placeholder="Enter group chat name..."
+                      className="group-input"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+
+                  {/* Members */}
+                  <div className="group-field">
+                    <p className="group-label">Members</p>
+                    <div className="group-chips">
+                      {selectedContacts.map((contact, index) => (
+                        <span className="group-chip" key={index}>
+                          {contact.username}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-3">
-                  <p className="text-body-bold text-blue-600">Members</p> {/* Enhanced color */}
-                  <div className="flex flex-wrap gap-3">
-                    {selectedContacts.map((contact, index) => (
-                      <p className="selected-contact" key={index}>
-                        {contact.username}
-                      </p>
-                    ))}
-                  </div>
+                <div className="group-action-bar">
+                  <button className="group-primary-btn" onClick={createChat}>
+                    START A NEW CHAT
+                  </button>
                 </div>
               </>
             )}
